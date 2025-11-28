@@ -1,0 +1,35 @@
+[main]
+appName = "GopherAI"
+host = "127.0.0.1"
+port = 9090
+
+[email]
+authCode = ""
+email = "your email address"
+
+[redis]
+host = "127.0.0.1"
+port = 6379
+password = ""
+db = 0
+
+[mysql]
+host = "127.0.0.1"
+port = 3306
+user = "goAI"
+password = ""
+db = "GopherAI"
+charset =  "utf8mb4"
+
+[jwt]
+ expireDuration= 8760
+ issuer= "huanheart"
+ subject= "GopherAI"
+ secret= "GopherAI-v1"
+
+[rabbitmq]
+  host= "127.0.0.1"
+  port= 5672
+  username= ""
+  password= ""
+  vhost= "/"
