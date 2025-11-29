@@ -21,7 +21,7 @@ type EmailConfig struct {
 
 // RedisConfig is the redis configuration
 type RedisConfig struct {
-	RedisPort     int `toml:"port"`
+	RedisPort     int    `toml:"port"`
 	RedisHost     string `toml:"host"`
 	RedisDb       int    `toml:"db"`
 	RedisPassword string `toml:"password"`
@@ -30,7 +30,7 @@ type RedisConfig struct {
 // MysqlConfig is the mysql configuration
 type MysqlConfig struct {
 	MysqlHost     string `toml:"host"`
-	MysqlPort     int `toml:"port"`
+	MysqlPort     int    `toml:"port"`
 	MysqlDb       string `toml:"db"`
 	MysqlUser     string `toml:"user"`
 	MysqlPassword string `toml:"password"`
@@ -41,14 +41,14 @@ type MysqlConfig struct {
 type JwtConfig struct {
 	ExpireDuration int    `toml:"expireDuration"`
 	Issuer         string `toml:"issuer"`
-	Subjet         string `toml:"subjet"`
+	Subject        string `toml:"subject"`
 	Secret         string `toml:"secret"`
 }
 
 // RabbitMq is the rabbitmq configuration
 type RabbitMq struct {
 	Host     string `toml:"host"`
-	Port     int `toml:"port"`
+	Port     int    `toml:"port"`
 	User     string `toml:"user"`
 	Password string `toml:"password"`
 	VHost    string `toml:"vhost"`
@@ -56,12 +56,12 @@ type RabbitMq struct {
 
 // Config is the configuration
 type Config struct {
-	MainConfig MainConfig  `toml:"main"`
-	Email      EmailConfig `toml:"email"`
-	Redis      RedisConfig `toml:"redis"`
-	Mysql      MysqlConfig `toml:"mysql"`
-	Jwt        JwtConfig   `toml:"jwt"`
-	RabbitMq   RabbitMq    `toml:"rabbitmq"`
+	MainConfig  `toml:"main"`
+	EmailConfig `toml:"email"`
+	RedisConfig `toml:"redis"`
+	MysqlConfig `toml:"mysql"`
+	JwtConfig   `toml:"jwt"`
+	RabbitMq    `toml:"rabbitmq"`
 }
 
 // RedisKeyConfig is the redis key configuration

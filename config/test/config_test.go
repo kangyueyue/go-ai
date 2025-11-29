@@ -6,11 +6,11 @@ import (
 	"github.com/kangyueyue/go-ai/config"
 )
 
-func TestInitConfig(t *testing.T){
+func TestInitConfig(t *testing.T) {
 	config := config.GetConfig()
-	if config == nil{
+	if config == nil {
 		t.Error("config is nil")
-		return 
+		return
 	}
-	t.Log(config.Email.AuthCode)
+	t.Log(config.AuthCode)
 }
