@@ -1,7 +1,10 @@
-.PHONY: run_frontend,run,format,tidy
+.PHONY: run_frontend, build_frontend, run, format, tidy
 
 run_frontend:
 	cd vue-frontend && npm run serve
+
+build_frontend:
+	cd vue-frontend && npm run build
 
 run:
 	go run main.go
