@@ -9,6 +9,6 @@ func InitRouter() *gin.Engine {
 	{
 		RegisterUserRouter(enterRouter.Group("/user"))
 	}
-	// TODO 后续登录的接口需要jwt鉴权
+	// TODO 登入之后的接口需要jwt鉴权
 	return r
 }

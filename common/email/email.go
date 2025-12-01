@@ -7,6 +7,11 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
+const (
+	CodeMsg     = "GopherAI验证码如下(验证码仅限于2分钟有效): "
+	UserNameMsg = "GopherAI的账号如下，请保留好，后续可以用账号/邮箱登录 "
+)
+
 // SendCaptcha 发送验证码
 func SendCaptcha(email, code, msg string) error {
 	m := gomail.NewMessage()

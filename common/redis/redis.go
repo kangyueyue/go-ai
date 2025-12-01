@@ -4,6 +4,7 @@ import (
 	"context"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 	"github.com/kangyueyue/go-ai/config"
@@ -47,4 +48,11 @@ func CheckCaptcha(email, userInputCaptcha string) (bool, error) {
 	}
 	// 验证码错误
 	return false, nil
+}
+
+// SetCaptchaForEmail 存到redis中
+func SetCaptchaForEmail(email, captcha string) error {
+	key := GenerateCaptcha(email)
+	expire := 2 * time.Minute
+	return Rdb.Set(context.Background(), key, captcha, expire).Err()
 }

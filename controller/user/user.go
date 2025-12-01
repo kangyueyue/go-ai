@@ -13,12 +13,30 @@ type (
 	RegisterRequest struct {
 		Email    string `json:"email" binding:"required"`
 		Captcha  string `json:"captcha"`
-		Password string `json:"password" binding:"gte=0"`
+		Password string `json:"password" binding:"gt=0"`
 	}
 
 	RegisterResponse struct {
 		controller.Response
 		Token string `json:"token,omitempty"`
+	}
+
+	LoginRequest struct {
+		Username string `json:"username" binding:"required"`
+		Password string `json:"password" binding:"gt=0"`
+	}
+
+	LoginResponse struct {
+		controller.Response
+		Token string `json:"token,omitempty"`
+	}
+
+	CaptchaRequest struct {
+		Email string `json:"email" binding:"required"`
+	}
+
+	CaptchaResponse struct {
+		controller.Response
 	}
 )
 
@@ -44,9 +62,40 @@ func Register(ctx *gin.Context) {
 
 // Login 登录
 func Login(ctx *gin.Context) {
+	req := new(LoginRequest)
+	resp := new(LoginResponse)
+
+	// 接受参数
+	if err := ctx.ShouldBindJSON(req); err != nil {
+		ctx.JSON(http.StatusOK, resp.CodeOf(code.CodeInvalidParams))
+		return
+	}
+	token, c := user.Login(req.Username, req.Password)
+	if c != code.CodeSuccess {
+		ctx.JSON(http.StatusOK, resp.CodeOf(c))
+		return
+	}
+	resp.Success()
+	resp.Token = token
+	ctx.JSON(http.StatusOK, resp)
+
 }
 
 // Captcha 验证码
 func Captcha(ctx *gin.Context) {
+	req := new(CaptchaRequest)
+	resp := new(CaptchaResponse)
 
+	// 接受参数
+	if err := ctx.ShouldBindJSON(req); err != nil {
+		ctx.JSON(http.StatusOK, resp.CodeOf(code.CodeInvalidParams))
+		return
+	}
+	c := user.SendCaptcha(req.Email)
+	if c != code.CodeSuccess {
+		ctx.JSON(http.StatusOK, resp.CodeOf(c))
+		return
+	}
+	resp.Success()
+	ctx.JSON(http.StatusOK, resp)
 }

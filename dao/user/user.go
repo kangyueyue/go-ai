@@ -9,14 +9,19 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	CodeMsg     = "GopherAI验证码如下(验证码仅限于1分钟有效): "
-	UserNameMsg = "GopherAI的账号如下，请保留好，后续可以用账号进行登录 "
-)
-
-// IsExistUser 判断用户是否存在
-func IsExistUser(email string) (bool, *model.User) {
+// IsExistUserByEmail 判断用户是否存在
+func IsExistUserByEmail(email string) (bool, *model.User) {
 	user, err := mysql.GetUserByEmail(email)
+	if errors.Is(err, gorm.ErrRecordNotFound) || user == nil {
+		// 不存在
+		return false, nil
+	}
+	return true, user // 存在
+}
+
+// IsExistUserByUsername 判断用户是否存在
+func IsExistUserByUsername(username string) (bool, *model.User) {
+	user, err := mysql.GetUserByUserName(username)
 	if errors.Is(err, gorm.ErrRecordNotFound) || user == nil {
 		// 不存在
 		return false, nil

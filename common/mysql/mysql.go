@@ -81,6 +81,13 @@ func GetUserByEmail(email string) (*model.User, error) {
 	return &user, err
 }
 
+// GetUserByUsername 根据username
+func GetUserByUsername(username string) (*model.User, error) {
+	var user model.User
+	err := DB.Where("username = ?", username).First(&user).Error
+	return &user, err
+}
+
 // InsertUser insert
 func InsertUser(user *model.User) (*model.User, error) {
 	err := DB.Create(user).Error
