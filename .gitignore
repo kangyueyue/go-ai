@@ -10,3 +10,6 @@ config/config.toml
 # frontend
 vue-frontend/node_modules/
 vue-frontend/dist/
+
+# .env
+.env
