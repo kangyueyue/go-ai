@@ -2,12 +2,15 @@
 
 run_frontend:
 	cd vue-frontend && npm run serve
+	@echo "run frontend success"
 
 build_frontend:
 	cd vue-frontend && npm run build
+	@echo "build frontend success"
 
 run:
 	go run main.go
+	@echo "go run success"
 
 format:
 	gofmt -w .

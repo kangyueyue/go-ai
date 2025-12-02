@@ -1,6 +1,7 @@
 package user
 
 import (
+	mylog "github.com/kangyueyue/go-ai/common/log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -57,6 +58,7 @@ func Register(ctx *gin.Context) {
 	}
 	resp.Success()
 	resp.Token = token
+	mylog.Log.Infof("register success,email:%s", req.Email)
 	ctx.JSON(http.StatusOK, resp)
 }
 
@@ -77,6 +79,7 @@ func Login(ctx *gin.Context) {
 	}
 	resp.Success()
 	resp.Token = token
+	mylog.Log.Infof("login success,username:%s", req.Username)
 	ctx.JSON(http.StatusOK, resp)
 
 }
@@ -97,5 +100,6 @@ func Captcha(ctx *gin.Context) {
 		return
 	}
 	resp.Success()
+	mylog.Log.Infof("send to email:%s success", req.Email)
 	ctx.JSON(http.StatusOK, resp)
 }

@@ -11,6 +11,7 @@ type MainConfig struct {
 	Port    int    `toml:"port"`
 	AppName string `toml:"appName"`
 	Host    string `toml:"host"`
+	Level   string `toml:"level"`
 }
 
 // EmailConfig is the email configuration

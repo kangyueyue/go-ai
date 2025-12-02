@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"github.com/gin-gonic/gin"
+	mylog "github.com/kangyueyue/go-ai/common/log"
+	"os"
+	"strconv"
 
 	"github.com/kangyueyue/go-ai/common/mysql"
 	"github.com/kangyueyue/go-ai/common/redis"
@@ -13,6 +16,7 @@ import (
 // StartServer 启动服务
 func StartServer(addr string, port int) error {
 	r := router.InitRouter()
+	mylog.Log.Infof("server start in port:%d", port)
 	return r.Run(fmt.Sprintf("%s:%d", addr, port))
 }
 
@@ -21,15 +25,33 @@ func main() {
 	conf := config.GetConfig()
 	host := conf.MainConfig.Host
 	port := conf.MainConfig.Port
+	level := conf.MainConfig.Level
+	appName := conf.MainConfig.AppName
+	// init log
+	mylog.InitLog(level, appName)
+
+	// init gin mode
+	switch level {
+	case "test":
+		gin.SetMode(gin.TestMode) // 测试环境
+	case "info":
+		gin.SetMode(gin.ReleaseMode) // 线上环境
+	default:
+		gin.SetMode(gin.DebugMode) // 开发环境
+	}
+
 	// init mysql
 	if err := mysql.InitMysql(); err != nil {
-		log.Println("InitMysql error , " + err.Error())
+		mylog.Log.Errorf("InitMysql error , " + err.Error())
 		return
 	}
 	// init redis
 	redis.Init()
 
-	// run
+	// port param
+	if len(os.Args) > 1 {
+		port, _ = strconv.Atoi(os.Args[1])
+	}
 	err := StartServer(host, port)
 	if err != nil {
 		panic(err)
