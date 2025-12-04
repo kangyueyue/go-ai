@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	mylog "github.com/kangyueyue/go-ai/common/log"
+	mylog "github.com/kangyueyue/go-ai/common/logger"
 	"os"
 	"strconv"
 
@@ -27,7 +27,7 @@ func main() {
 	port := conf.MainConfig.Port
 	level := conf.MainConfig.Level
 	appName := conf.MainConfig.AppName
-	// init log
+	// init logger
 	mylog.InitLog(level, appName)
 
 	// init gin mode

@@ -1,7 +1,7 @@
 package user
 
 import (
-	mylog "github.com/kangyueyue/go-ai/common/log"
+	mylog "github.com/kangyueyue/go-ai/common/logger"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
