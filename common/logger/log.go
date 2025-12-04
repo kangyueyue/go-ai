@@ -36,7 +36,7 @@ func InitLog(level, appName string) {
 		panic(fmt.Errorf("invalid logger level:%s", level))
 	}
 	// store file
-	logFile := GetProjectPath() + "logger/" + appName + ".logger"
+	logFile := GetProjectPath() + "log/" + appName + ".log"
 	out, err := rotatelogs.New(
 		logFile+".%Y%m%d%H",                      // 指定日志文件的路径的名称，不存在自动创建
 		rotatelogs.WithLinkName(logFile),         // 最新一份日志创建软链接,不带时间后缀
