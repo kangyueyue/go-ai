@@ -1,0 +1,5 @@
+time="2025-12-04 15:06:03" level=info msg="server start in port:9090" func=main.StartServer file="/Users/zuozikang/go/src/go-ai/main.go:19"
+time="2025-12-04 15:08:27" level=info msg="send to email:zikangzuo@outlook.com success" func=github.com/kangyueyue/go-ai/controller/user.Captcha file="/Users/zuozikang/go/src/go-ai/controller/user/user.go:103"
+time="2025-12-04 15:08:59" level=info msg="register success,email:zikangzuo@outlook.com" func=github.com/kangyueyue/go-ai/controller/user.Register file="/Users/zuozikang/go/src/go-ai/controller/user/user.go:61"
+time="2025-12-04 15:09:31" level=info msg="login success,username:01488758547" func=github.com/kangyueyue/go-ai/controller/user.Login file="/Users/zuozikang/go/src/go-ai/controller/user/user.go:82"
+time="2025-12-04 15:29:46" level=info msg="server start in port:9090" func=main.StartServer file="/Users/zuozikang/go/src/go-ai/main.go:19"
