@@ -25,15 +25,16 @@ func NewAIHelperManager() *AIHelperManager {
 
 // GetOrCreateAIHelper 获取或创建ai helper
 func (m *AIHelperManager) GetOrCreateAIHelper(userName string,
-	sessionID string, modelType ModelName,
-	config map[ModelName]interface{},
+	sessionID string, modelType string,
+	config map[string]interface{},
 ) (*AIHelper, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	// 获取用户的会话映射
+	// 获取用户的helper
 	userHelpers, ok := m.helpers[userName]
 	if !ok {
+		// create
 		userHelpers = make(map[string]*AIHelper)
 		m.helpers[userName] = userHelpers
 	}

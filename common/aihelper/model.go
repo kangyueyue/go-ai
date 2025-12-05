@@ -31,9 +31,6 @@ func NewOpenAIModel(ctx context.Context) (*OpenAIModel, error) {
 	key := os.Getenv("OPENAI_API_KEY")
 	modelName := os.Getenv("OPENAI_MODEL_NAME")
 	baseURL := os.Getenv("OPENAI_BASE_URL")
-	fmt.Println(key)
-	fmt.Println(modelName)
-	fmt.Println(baseURL)
 
 	llm, err := openai.NewChatModel(ctx, &openai.ChatModelConfig{
 		APIKey:  key,

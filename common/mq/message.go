@@ -2,6 +2,10 @@ package mq
 
 import (
 	"encoding/json"
+
+	"github.com/kangyueyue/go-ai/common/logger"
+	"github.com/kangyueyue/go-ai/dao/message"
+	"github.com/kangyueyue/go-ai/model"
 	"github.com/streadway/amqp"
 )
 
@@ -32,12 +36,15 @@ func MqMessage(msg *amqp.Delivery) error {
 	if err != nil {
 		return err
 	}
-	//newMsg := &model.Message{
-	//	SessionID: param.SessionId,
-	//	Content:   param.Content,
-	//	UserName:  param.UserName,
-	//	IsUser:    param.IsUser,
-	//}
-	// TODO 消费者异步写入db
+	newMsg := &model.Message{
+		SessionID: param.SessionId,
+		Content:   param.Content,
+		UserName:  param.UserName,
+		IsUser:    param.IsUser,
+	}
+	_, err = message.CreateMessage(newMsg)
+	if err == nil {
+		logger.Log.Infof("use mq to save message success:%v", newMsg.Content)
+	}
 	return err
 }

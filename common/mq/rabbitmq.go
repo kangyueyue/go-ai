@@ -18,14 +18,14 @@ func initConn() {
 		c.RabbitMq.User,
 		c.RabbitMq.Password,
 		c.RabbitMq.Host,
-		&c.RabbitMq.Port,
+		c.RabbitMq.Port,
 		c.RabbitMq.VHost,
 	)
-	mylog.Log.Info("mqUrl: %s", mqUrl)
+	mylog.Log.Infof("mqUrl: %s", mqUrl)
 	var err error
 	conn, err = amqp.Dial(mqUrl)
 	if err != nil {
-		mylog.Log.Error("Dial mq error: %v", err)
+		mylog.Log.Errorf("Dial mq error: %v", err)
 		return
 	}
 }
@@ -59,19 +59,31 @@ func NewWorkRabbitMq(queue string) *RabbitMq {
 	if conn == nil {
 		initConn()
 	}
+
+	// 检查连接是否成功
+	if conn == nil {
+		mylog.Log.Error("Failed to initialize RabbitMQ connection")
+		return rabbitmq
+	}
+
 	rabbitmq.coon = conn
 
 	// get channel
 	var err error
 	rabbitmq.channel, err = rabbitmq.coon.Channel()
 	if err != nil {
-		mylog.Log.Error("Get channel error: %v", err)
+		mylog.Log.Errorf("Get channel error: %v", err)
 	}
 	return rabbitmq
 }
 
 // Publish 发送消息
 func (r *RabbitMq) Publish(message string) error {
+	// 检查channel是否为nil
+	if r.channel == nil {
+		return fmt.Errorf("RabbitMQ channel is nil, cannot publish message")
+	}
+
 	_, err := r.channel.QueueDeclare(r.Key, false, false, false, false, nil)
 	if err != nil {
 		return err

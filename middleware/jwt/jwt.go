@@ -33,7 +33,7 @@ func Auth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		ctx.Set("username", username) // 后续ctx直接取
+		ctx.Set("userName", username) // 后续ctx直接取
 		ctx.Next()                    // 通过
 	}
 }
