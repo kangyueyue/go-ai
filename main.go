@@ -42,7 +42,7 @@ func main() {
 
 	// init mysql
 	if err := mysql.InitMysql(); err != nil {
-		mylog.Log.Errorf("InitMysql error , " + err.Error())
+		mylog.Log.Errorf("InitMysql error %s", err.Error())
 		return
 	}
 	// init redis
